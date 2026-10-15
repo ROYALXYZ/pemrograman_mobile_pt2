@@ -10,41 +10,46 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        // Semua anak yang tidak memakai Positioned otomatis diletakkan di
-        // tengah Stack, karena itu kita tidak perlu membungkus teks dengan
-        // widget Center.
-        alignment: Alignment.center,
-        children: [
-          // 1. Latar: Container + BoxDecoration dengan gradien.
-          // Positioned.fill dipakai agar latar menutupi seluruh layar. Tanpa
-          // itu, Container hanya sekecil isinya dan gradien tidak terlihat.
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    const Color(0xFF1565C0),
-                    const Color(0xFF6A1B9A),
-                  ],
+      // SizedBox.expand memaksa Stack memenuhi seluruh tinggi layar.
+      // Tanpa itu, Stack hanya setinggi anak terbesarnya karena Scaffold
+      // memberikan loose constraints, sehingga Positioned.fill pun ikut
+      // hanya mengisi area sebesar itu.
+      body: SizedBox.expand(
+        child: Stack(
+          // Semua anak yang tidak memakai Positioned otomatis diletakkan di
+          // tengah Stack, karena itu kita tidak perlu membungkus teks dengan
+          // widget Center.
+          alignment: Alignment.center,
+          children: [
+            // 1. Latar: Container + BoxDecoration dengan gradien.
+            // Positioned.fill dipakai agar latar menutupi seluruh layar.
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      const Color(0xFF1565C0),
+                      const Color(0xFF6A1B9A),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
 
-          // 2. Tombol "Kembali" di pojok kiri atas.
-          // SafeArea mencegah tombol tertutup status bar / notch.
-          Positioned(
-            top: 8,
-            left: 8,
-            child: SafeArea(child: _buildBackButton(context)),
-          ),
+            // 2. Tombol "Kembali" di pojok kiri atas.
+            // SafeArea mencegah tombol tertutup status bar / notch.
+            Positioned(
+              top: 8,
+              left: 8,
+              child: SafeArea(child: _buildBackButton(context)),
+            ),
 
-          // 3. Konten di tengah.
-          _buildKonten(),
-        ],
+            // 3. Konten di tengah.
+            _buildKonten(),
+          ],
+        ),
       ),
     );
   }
