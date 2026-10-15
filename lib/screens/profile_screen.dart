@@ -25,43 +25,71 @@ class ProfileScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 24),
-              const ProfilePhoto(radius: 60),
-              const SizedBox(height: 24),
-              const ProfileInfo(
-                name: 'Rangga Pasha Cucu Wibisono',
-                nim: '25.11.6570',
-                programStudi: 'S1 Informatika',
-                email: 'r.pasha@students.amikom.ac.id',
-                lokasi: 'Yogyakarta, Indonesia',
-              ),
-              const SizedBox(height: 24),
-              const SocialMediaRow(),
-              const SizedBox(height: 24),
-              // Tombol aksi
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.edit),
-                    label: const Text('Edit'),
+      // Catatan penting: Expanded sengaja diletakkan DI LUAR
+      // SingleChildScrollView. Column di dalam scroll view menerima
+      // unbounded height constraints, sehingga anak dengan flex akan membuat
+      // Flutter melempar error:
+      // "RenderFlex children have non-zero flex but incoming height
+      //  constraints are unbounded."
+      // Expanded di luar scroll view membuat Column ini punya tinggi
+      // terbatas, sehingga pembagian flex di bawahnya valid.
+      body: SafeArea(
+        child: Column(
+          children: [
+            // 3 dari 4 ruang untuk foto profil dan informasi. Isi yang lebih
+            // panjang dari layar tetap bisa digulir karena isinya dibungkus
+            // SingleChildScrollView.
+            Expanded(
+              flex: 3,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 24),
+                      const ProfilePhoto(radius: 60),
+                      const SizedBox(height: 24),
+                      const ProfileInfo(
+                        name: 'Rangga Pasha Cucu Wibisono',
+                        nim: '25.11.6570',
+                        programStudi: 'S1 Informatika',
+                        email: 'r.pasha@students.amikom.ac.id',
+                        lokasi: 'Yogyakarta, Indonesia',
+                      ),
+                      const SizedBox(height: 24),
+                      const SocialMediaRow(),
+                      const SizedBox(height: 24),
+                    ],
                   ),
-                  ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.share),
-                    label: const Text('Bagikan'),
-                  ),
-                ],
+                ),
               ),
-            ],
-          ),
+            ),
+
+            // 1 dari 4 ruang untuk tombol aksi. Flexible memakai
+            // FlexFit.loose, jadi tombol tetap setinggi alaminya dan tidak
+            // dipaksa mengisi seluruh jatah ruangnya.
+            Flexible(
+              flex: 1,
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.edit),
+                      label: const Text('Edit'),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.share),
+                      label: const Text('Bagikan'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
