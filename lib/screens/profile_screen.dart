@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/profile_photo.dart';
 import '../widgets/profile_info.dart';
+import '../widgets/social_media_row.dart';
+import 'about_screen.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
   @override
@@ -10,6 +12,18 @@ class ProfileScreen extends StatelessWidget {
         title: const Text('Profil Mahasiswa'),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+            tooltip: 'Tentang Aplikasi',
+            icon: const Icon(Icons.info_outline),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AboutScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -27,6 +41,8 @@ class ProfileScreen extends StatelessWidget {
                 email: 'r.pasha@students.amikom.ac.id',
                 lokasi: 'Yogyakarta, Indonesia',
               ),
+              const SizedBox(height: 24),
+              const SocialMediaRow(),
               const SizedBox(height: 24),
               // Tombol aksi
               Row(
