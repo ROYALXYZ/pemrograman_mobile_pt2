@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/profile_photo.dart';
 import '../widgets/profile_info.dart';
+import '../widgets/social_media_row.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
   @override
@@ -27,6 +28,8 @@ class ProfileScreen extends StatelessWidget {
                 email: 'r.pasha@students.amikom.ac.id',
                 lokasi: 'Yogyakarta, Indonesia',
               ),
+              const SizedBox(height: 24),
+              const SocialMediaRow(),
               const SizedBox(height: 24),
               // Tombol aksi
               Row(
