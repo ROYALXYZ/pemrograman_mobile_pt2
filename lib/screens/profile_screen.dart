@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/profile_photo.dart';
+import '../widgets/action_buttons.dart';
+import '../widgets/profile_header.dart';
 import '../widgets/profile_info.dart';
 import '../widgets/social_media_row.dart';
 import 'about_screen.dart';
@@ -48,11 +49,12 @@ class ProfileScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const SizedBox(height: 24),
-                      const ProfilePhoto(radius: 60),
-                      const SizedBox(height: 24),
-                      const ProfileInfo(
+                      const ProfileHeader(
                         name: 'Rangga Pasha Cucu Wibisono',
                         nim: '25.11.6570',
+                        photoRadius: 60,
+                      ),
+                      const ProfileInfo(
                         programStudi: 'S1 Informatika',
                         email: 'r.pasha@students.amikom.ac.id',
                         lokasi: 'Yogyakarta, Indonesia',
@@ -71,23 +73,7 @@ class ProfileScreen extends StatelessWidget {
             // dipaksa mengisi seluruh jatah ruangnya.
             Flexible(
               flex: 1,
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.edit),
-                      label: const Text('Edit'),
-                    ),
-                    ElevatedButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.share),
-                      label: const Text('Bagikan'),
-                    ),
-                  ],
-                ),
-              ),
+              child: Center(child: const ActionButtons()),
             ),
           ],
         ),
